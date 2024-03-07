@@ -14,18 +14,16 @@ message CreateCategoryRequest {
     string name = 1;
     string description = 2;
 }
-message CategoryResponse {
-    Category category = 1;
-}
 
 message CategoryList {
     repeated Category categories = 1;
 }
 
-message Blank {}
+
+message blank{}
 
 service CategoryService {
-    rpc CreateCategory(CreateCategoryRequest) returns (CategoryResponse){}
-    rpc ListCategories(Blank) returns (CategoryList){}
+    rpc CreateCategory(CreateCategoryRequest) returns (Category){}
+    rpc ListCategories(blank) returns (CategoryList){}
 
 }
