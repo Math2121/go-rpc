@@ -7,16 +7,18 @@ import (
 	"github.com/Math2121/go-rpc/internal/database"
 	"github.com/Math2121/go-rpc/internal/pb"
 	"github.com/Math2121/go-rpc/internal/service"
+	_ "github.com/mattn/go-sqlite3"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
 
 func main() {
-	db, err := sql.Open("sqlite3", "file::memory:?cache=shared")
+	db, err := sql.Open("sqlite3", "test.db")
 
 	if err != nil {
 		panic(err)
 	}
+	defer db.Close()
 
 	categoryDb := database.NewCategory(db)
 	categoryService := service.NewCategoryService(*categoryDb)
@@ -34,3 +36,4 @@ func main() {
 		panic(err)
 	}
 }
+
